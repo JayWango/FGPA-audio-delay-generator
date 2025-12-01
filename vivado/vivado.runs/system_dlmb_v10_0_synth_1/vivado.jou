@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Mon Oct 13 15:55:03 2025
+# Process ID: 287479
+# Current directory: /home/jasonwang/Desktop/ece253/lab1b/vivado/vivado.runs/system_dlmb_v10_0_synth_1
+# Command line: vivado -log system_dlmb_v10_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_dlmb_v10_0.tcl
+# Log file: /home/jasonwang/Desktop/ece253/lab1b/vivado/vivado.runs/system_dlmb_v10_0_synth_1/system_dlmb_v10_0.vds
+# Journal file: /home/jasonwang/Desktop/ece253/lab1b/vivado/vivado.runs/system_dlmb_v10_0_synth_1/vivado.jou
+# Running On: eda4152-5, OS: Linux, CPU Frequency: 4220.420 MHz, CPU Physical cores: 8, Host memory: 16291 MB
+#-----------------------------------------------------------
+source system_dlmb_v10_0.tcl -notrace

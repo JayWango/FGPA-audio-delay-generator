@@ -1,0 +1,17 @@
+
+*** Running vivado
+    with args -log system_axi_gpio_0_4.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_axi_gpio_0_4.tcl
+
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source system_axi_gpio_0_4.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 2993.664 ; gain = 2.016 ; free physical = 4079 ; free virtual = 31088
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/jasonwang/Desktop/ece253/lab2b/vivado/SevenSeg_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/ece/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP system_axi_gpio_0_4, cache-ID = 3d63dec6ed2badd1.
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 26 15:47:38 2025...

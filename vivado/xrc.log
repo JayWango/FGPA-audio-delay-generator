@@ -1,0 +1,11 @@
+Mon Oct 13 16:52:13 2025: Server was asked to start on port: '46297'
+Mon Oct 13 16:52:13 2025: Server is using token UUID: 'b9297e5d-041a-4ab2-ab6e-c4edcef53771'
+Mon Oct 13 16:52:13 2025: Attempting to start server on port '46297'
+Mon Oct 13 16:52:13 2025: XRC main fifo: created main fifo '/tmp/xrcmainb9297e5d-041a-4ab2-ab6e-c4edcef53771', fd read = 11
+Mon Oct 13 16:52:13 2025: Running Rule Check Server
+Mon Oct 13 16:52:13 2025: Version 1.6.1
+Mon Oct 13 16:52:13 2025: Rule Check Server: Accepted socket connection from client
+Mon Oct 13 16:52:14 2025: EXCHANGE_TOKEN received, server token: b9297e5d-041a-4ab2-ab6e-c4edcef53771, passed token: b9297e5d-041a-4ab2-ab6e-c4edcef53771
+Mon Oct 13 18:20:42 2025: STOP_SERVER received, server token: b9297e5d-041a-4ab2-ab6e-c4edcef53771, passed token: b9297e5d-041a-4ab2-ab6e-c4edcef53771
+Mon Oct 13 18:20:42 2025: Socket received request to stop server.
+Mon Oct 13 18:20:42 2025: SERVER: destructor for server bound to port 46297

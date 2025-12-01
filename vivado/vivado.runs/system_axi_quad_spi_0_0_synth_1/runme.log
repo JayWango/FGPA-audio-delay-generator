@@ -1,0 +1,17 @@
+
+*** Running vivado
+    with args -log system_axi_quad_spi_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_axi_quad_spi_0_0.tcl
+
+
+****** Vivado v2022.1 (64-bit)
+  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source system_axi_quad_spi_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 3082.414 ; gain = 2.016 ; free physical = 3026 ; free virtual = 34402
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/jasonwang/Desktop/ece253/lab2b/vivado/SevenSeg_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/ece/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP system_axi_quad_spi_0_0, cache-ID = af03eee0b70a5adc.
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 26 16:31:59 2025...

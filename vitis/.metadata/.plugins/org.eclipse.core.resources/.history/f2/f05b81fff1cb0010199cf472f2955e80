@@ -1,0 +1,7 @@
+#include "timers.h"
+
+XIntc sys_intc;
+
+void init_sampling_timer() {
+
+}

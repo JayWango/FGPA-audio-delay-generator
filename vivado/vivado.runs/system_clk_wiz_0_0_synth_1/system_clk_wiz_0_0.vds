@@ -1,0 +1,19 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Sun Oct 26 16:31:42 2025
+# Process ID: 3549556
+# Current directory: /home/jasonwang/Desktop/ece253/lab2b/vivado/vivado.runs/system_clk_wiz_0_0_synth_1
+# Command line: vivado -log system_clk_wiz_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_clk_wiz_0_0.tcl
+# Log file: /home/jasonwang/Desktop/ece253/lab2b/vivado/vivado.runs/system_clk_wiz_0_0_synth_1/system_clk_wiz_0_0.vds
+# Journal file: /home/jasonwang/Desktop/ece253/lab2b/vivado/vivado.runs/system_clk_wiz_0_0_synth_1/vivado.jou
+# Running On: edalinux05, OS: Linux, CPU Frequency: 2100.000 MHz, CPU Physical cores: 20, Host memory: 16194 MB
+#-----------------------------------------------------------
+source system_clk_wiz_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 3085.387 ; gain = 2.016 ; free physical = 3033 ; free virtual = 34409
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/jasonwang/Desktop/ece253/lab2b/vivado/SevenSeg_1.0'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/ece/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP system_clk_wiz_0_0, cache-ID = 094fe69fbab1634b.
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 26 16:31:59 2025...
