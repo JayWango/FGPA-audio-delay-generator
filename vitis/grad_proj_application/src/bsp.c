@@ -9,7 +9,10 @@ volatile u32 circular_buffer[BUFFER_SIZE] = {0};
 volatile u32 read_head = 0;
 volatile u32 write_head = 0;
 
+// variables used in sampling_ISR() for printing statistics and collecting the DC offset of the raw data
 volatile static u32 count = 0;
+static int32_t dc_bias = 0;
+static int first_run = 1; // just a simple flag
 
 void BSP_init() {
 	// interrupt controller
@@ -20,59 +23,61 @@ void BSP_init() {
 }
 
 void sampling_ISR() {
-    // 1. Hardware Ping-Pong
+    // refer to stream_grabber.c from lab3a for why this is necessary
+	// BASEADDR + 4 is the offset of where you "select" which index to read from the stream grabber
+	// BASEADDR + 8 is the offset of where you actually read the raw data of the mic
     Xil_Out32(XPAR_MIC_BLOCK_STREAM_GRABBER_0_BASEADDR + 4, 0);
     u32 raw_data = Xil_In32(XPAR_MIC_BLOCK_STREAM_GRABBER_0_BASEADDR + 8);
 
-    // 2. CAST TO SIGNED (Crucial Step)
-    // This turns "4.2 Billion" into "-37 Million"
-    int32_t curr_sample = (int32_t)raw_data;
+    // cast the u32 to int32 so that the raw data is a bipolar signal (audio waves have pos/neg values)
+    int32_t curr_sample = (int32_t) raw_data;
 
-    // 3. DC Bias Tracking (Use signed math)
-    static int32_t dc_bias = 0;
-    static int first_run = 1;
-
+    // set first sample from mic as the dc_bias
     if (first_run) {
         dc_bias = curr_sample;
         first_run = 0;
     }
 
+	// self note: try to comment out this exponential moving average and see how it affects our audio signal
     // Exponential Moving Average
+	// this line expands to: dc_bias = dc_bias + ((curr_sample - dc_bias) >> 10);
     dc_bias += (curr_sample - dc_bias) >> 10;
 
-    // 4. Remove Bias
-    // e.g., -37,000,000 - (-37,000,000) = 0 (Centered!)
+    // remove the DC offset from the current sample
     int32_t audio_signal = curr_sample - dc_bias;
 
-    // 5. Scale (Arithmetic Shift)
-    // Now that we preserve the sign, we can shift safely.
-    // Try >> 10 or >> 11 based on volume needs.
+    // now that we preserve the sign, we can shift safely
+	// scale the signal down to a nice number ideally between -1133 and 1133
     int32_t scaled_signal = audio_signal >> 15;
 
-    // 6. Re-Center for PWM (Unsigned Output)
-    // We add the mid-point (1133) to turn the signed AC wave into a positive DC wave.
-    int32_t pwm_sample = (RESET_VALUE / 2) + scaled_signal;
+    // re-center for PWM (unsigned output between 0 to 2267)
+    // we add the mid-point of the PWM ticks (2267/2 = 1133) to turn the signed AC wave into a positive DC wave
+    int32_t pwm_sample = scaled_signal + (RESET_VALUE / 2);
 
-    // 7. Clip
+    // clip the audio for safety 
     if (pwm_sample < 0) pwm_sample = 0;
     if (pwm_sample > RESET_VALUE) pwm_sample = RESET_VALUE;
 
-    // print tests
+    // print data - remove in the final product to make this ISR faster (printing in ISR is generally bad)
     count++;
 	if (count >= 44100) {
-		xil_printf("raw_sample: %lu\r\n", raw_data);
-		xil_printf("curr_sample: %ld\r\n", curr_sample);
-		xil_printf("pwm_sample: %lu\r\n", pwm_sample);
+		xil_printf("raw_sample:    %lu\r\n", raw_data);
+		xil_printf("curr_sample:   %ld\r\n", curr_sample);
+		xil_printf("dc_bias: 	   %ld\r\n", dc_bias);
+		xil_printf("audio_signal:  %ld\r\n", audio_signal);
+		xil_printf("scaled_signal: %ld\r\n", scaled_signal);
+		xil_printf("pwm_sample:    %ld\r\n", pwm_sample);
+		xil_pritnf("\r\n");
 		count = 0;
 	}
 
-    // 8. Output
+	// set the duty cycle of the PWM signal
     XTmrCtr_SetResetValue(&pwm_tmr, 1, pwm_sample);
 
-    // 9. Restart Hardware
+    // need to write some value to baseaddr of stream grabber to reset it for the next sample
     Xil_Out32(XPAR_MIC_BLOCK_STREAM_GRABBER_0_BASEADDR, 0);
 
-    // 10. Ack Interrupt...
+    // clear the interrupt flag to enable the interrupt to trigger again; csr = control status register
     Xuint32 csr = XTmrCtr_ReadReg(sampling_tmr.BaseAddress, 0, XTC_TCSR_OFFSET);
     XTmrCtr_WriteReg(sampling_tmr.BaseAddress, 0, XTC_TCSR_OFFSET, csr | XTC_CSR_INT_OCCURED_MASK);
 }
