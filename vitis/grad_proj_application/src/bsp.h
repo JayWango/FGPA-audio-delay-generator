@@ -10,10 +10,41 @@
 #include <xbasic_types.h> //
 #include <xio.h> // provides I/O utility macros for r/w to hardware registers
 
+#define RESET_VALUE 2048 // modify this to change frequency of sampling_ISR()
+#define NUM_INPUT_SAMPLES 5
 
-#define RESET_VALUE 2267 // modify this to change frequency of sampling_ISR()
+#define HP_FILTER_COEFF 0 // range from 0-256, higher = less filtering, lower = more filtering
+
+#define AGC_THRESHOLD 100000 // lower = more aggressive gain reduction
+#define AGC_MIN_GAIN 128 // prevents complete silence
+#define AGC_REDUCTION_RATE 4 // how fast gain reduces, higher = slower reduction, lower = faster reduction
+
+#define INPUT_LIMIT_THRESHOLD 100000
+#define OUTPUT_LIMIT_THRESHOLD 100000
+
+#define BTN_MIDDLE  BTN4_MASK
+#define BTN_RIGHT   BTN2_MASK
+#define BTN_LEFT    BTN1_MASK
+#define BTN_TOP     BTN0_MASK
+#define BTN_BOTTOM  BTN3_MASK
+
+#define BTN0_MASK   0x01  // bit 0 --> (BTNU on fpga board)
+#define BTN1_MASK   0x02  // bit 1 --> (BTNL on fpga board)
+#define BTN2_MASK   0x04  // bit 2 --> (BTNR on fpga board)
+#define BTN3_MASK   0x08  // bit 3 --> (BTND on fpga board)
+#define BTN4_MASK   0x10  // bit 4 --> (BTNC on fpga board)
+
+#define ENC_A       0x01
+#define ENC_B       0x02
+#define ENC_BTN     0x04
 
 void BSP_init();
+
+// encoder
+void init_btn_gpio();
+void init_enc_gpio();
+void pushBtn_ISR(void *CallbackRef);
+void enc_ISR(void *CallbackRef);
 
 // axi_timer_0
 int init_sampling_timer();
